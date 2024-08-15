@@ -31,8 +31,8 @@ project_entries:
 
 old_project_entries:
   - title: Algorithm Study
-    url: https://www.soopr.co
-    desc: Delight your readers - add beautiful share and like buttons easily to your websites
+    url: algorithm-study
+    desc: algorithm problem solving mostly by Python
     highlight: NEW
 
   - title: Cookie
