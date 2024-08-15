@@ -1,0 +1,9 @@
+<ul class="research-horizontal-list">
+  {% for item in include.collection %}
+  <li class="research-card">
+    <a href="{{ item.url }}">
+      <span class="research-header"> {{ item.title }} </span>
+    </a>
+  </li>
+  {% endfor %}
+</ul>

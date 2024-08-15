@@ -1,12 +1,15 @@
 navbar_entries:
-  - title: about
+  - title: About Me
     url: about
 
   - title: blog
     url: blog
 
-  - title: JeeWon's github
+  - title: Github
     url: https://github.com/rosaze
+
+  - title: Research Summaries
+    url: research
 
 project_entries:
   - title: Ac.T(관광데이터 공모전)
@@ -35,17 +38,17 @@ old_project_entries:
     desc: algorithm problem solving mostly by Python
     highlight: NEW
 
-  - title: Cookie
-    url: https://github.com/abhinavs/cookie
+  - title: Bigdata Hackton
+    url: bigdata-hackaton
     desc: An open source landing website with supporting pages and integrated blog
 
   - title: Moonwalk
     url: https://github.com/abhinavs/moonwalk
     desc: A fast and minimalist Jekyll blog theme with clean dark mode
 
-  - title: Humangous
-    url: https://www.humangous.co
-    desc: The better people know you, the better they collaborate
+  - title: Research Summaries
+    url: research
+    desc: Summaries and analyses of various research papers.
 
 footer_entries:
   - title: Baekjoon handle
