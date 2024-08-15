@@ -24,19 +24,10 @@ project_entries:
     #You can control visibility from _config.yml file
 
   - title: Web App-EduTools
-    url: overview-post
-    desc: Node.js 와 react를 활용한 웹앱입니다. 어린 아이들을 돌보는 교사들과, 제작자들을 위한 거래 관리 플랫폼.
+    url: edutools
+    desc: Node.js 와 react를 활용한 웹앱입니다. 어린 아이들을 돌보는 교사들과, 제작자들을 위한 거래 관리 플랫폼입니다.
     #This project uses highlight markup, configured in _data/home.yml
     highlight: WIP
-
-  - title: Project 5
-    url: overview-post
-    desc: Moonwalk also has horizontal list (used in header and footer)
-    highlight: WIP
-
-  - title: Project 6
-    url: overview-post
-    desc: It also has a scalable vertical list (in case you need it)
 
 old_project_entries:
   - title: Algorithm Study
