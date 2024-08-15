@@ -19,7 +19,7 @@ I have a deep interest in **Artificial Intelligence (AI)**, particularly in **Ma
 
 You can explore my projects through the GitHub link provided on this site. If you wish to reach out to me, feel free to contact me at **geenieeyoon@gmail.com**. Additionally, you can check out my **Baekjoon** and **LinkedIn** profiles, which are also linked on this site.
 
-제 프로젝트들은 이 사이트에 추가된 GitHub 링크에서 확인하실 수 있습니다. 저에게 연락하고 싶으시다면 **geenieeyoon@gmail.com**으로 언제든지 메일을 보내주세요. 또한, 이 사이트에서 제 **백준**과 **LinkedIn** 링크도 확인하실 수 있습니다.
+제 프로젝트들은 이 사이트에 추가된 GitHub 링크에서 확인하실 수 있습니다. 저에게 연락하고 싶으시다면 **geenieeyoon@gmail.com**으로 언제든지 메일을 보내주세요. 또한, 이 사이트에서 제 **Instagram**과 **LinkedIn** 링크도 확인하실 수 있습니다.
 
 ---
 
