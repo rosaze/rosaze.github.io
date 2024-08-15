@@ -5,11 +5,11 @@ navbar_entries:
   - title: blog
     url: blog
 
-  - title: website
-    url: https://www.abhinav.co
+  - title: JeeWon's github
+    url: https://github.com/rosaze
 
 project_entries:
-  - title: Project 1
+  - title: Ac.T(관광데이터 공모전)
     url: overview-post
     desc: This is an example project, configured in _data/home.yml
 
@@ -38,7 +38,7 @@ project_entries:
 old_project_entries:
   - title: Soopr
     url: https://www.soopr.co
-    desc: Delight your readers - add beautiful share and like buttons easily to your websites 
+    desc: Delight your readers - add beautiful share and like buttons easily to your websites
     highlight: NEW
 
   - title: Cookie
@@ -97,5 +97,3 @@ misc_entries:
 
           - title: it is easy to use, see _data/home.yml to see how to configure it.
             url: false
-
-
