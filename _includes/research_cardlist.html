@@ -1,8 +1,16 @@
-<ul class="research-horizontal-list">
-  {% for item in include.collection %}
-  <li class="research-card">
+<ul class="horizontal-list">
+  {% for item in site.data.home.research_entries %}
+  <li class="card">
     <a href="{{ item.url }}">
-      <span class="research-header"> {{ item.title }} </span>
+      <span class="header">
+        {{ item.title }} {% if item.highlight %}
+        <mark>{{ item.highlight }}</mark>
+        {% endif %}
+      </span>
+      <hr />
+      {% if item.desc != false %}
+      <p class="body">{{ item.desc }}</p>
+      {% endif %}
     </a>
   </li>
   {% endfor %}

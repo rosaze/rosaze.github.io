@@ -26,8 +26,8 @@ project_entries:
     desc: 대학생들의 능력 스탯을 시각적으로 보여줄 수 있는 간단한 웹사이트입니다.
     #You can control visibility from _config.yml file
 
-  - title: Web App-EduTools
-    url: edutools
+  - title:
+    url: code
     desc: Node.js 와 react를 활용한 웹앱입니다. 어린 아이들을 돌보는 교사들과, 제작자들을 위한 거래 관리 플랫폼입니다.
     #This project uses highlight markup, configured in _data/home.yml
     highlight: WIP
@@ -62,6 +62,16 @@ footer_entries:
 
   - title: feed
     url: feed.xml
+
+research_entries:
+  - title: Machine Learning Papers
+    url: /categories/machine-learning
+    desc: Collection of machine learning research papers
+    highlight: NEW
+
+  - title: Prompt Engineering
+    url: /categories/prompt-engineering
+    desc: Collection of Prompt Engineering & gen AI
 
 misc_entries:
   - title: this is an example vertical list

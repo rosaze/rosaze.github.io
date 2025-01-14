@@ -1,0 +1,15 @@
+---
+layout: default
+title: Prompt Engineering Papers
+---
+
+<h1>Prompt Engineering Papers</h1>
+
+{% for post in site.categories.prompt-engineering %}
+<li class="post-list-item">
+  <span class="home-date">
+    {{ post.date | date: site.theme_config.date_format }}»
+  </span>
+  <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+</li>
+{% endfor %}
