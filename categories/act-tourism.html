@@ -1,0 +1,151 @@
+---
+layout: default
+title: Ac.T(관광데이터 공모전)
+---
+
+<header class="project-header">
+  <h1>{{ page.title }}</h1>
+  <div class="project-overview">
+    <div class="project-card">
+      <h3>🚀 프로젝트 개요</h3>
+      <div class="card-section">
+        <p>
+          한국관광공사에서 주최한 관광데이터 공모전 프로젝트로, 관광 데이터를
+          분석하여 맞춤형 여행 코스를 추천하는 서비스를 개발했다. 아쉽게도
+          수상을 하진 못 했지만 다양한 시도를 할 수 있는 경험이었다!
+        </p>
+      </div>
+      <h3>💡 주요 성과</h3>
+      <div class="card-section">
+        <ul>
+          <li>실시간 관광지 정보 제공 API 구축</li>
+          <li>Python 기반 데이터 전처리 자동화</li>
+          <li>맞춤형 추천 알고리즘 구현</li>
+        </ul>
+      </div>
+      <h3>🛠️ 기술 스택</h3>
+      <div class="card-section tech-stack">
+        <div
+          class="tech-tags"
+          style="
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: nowrap;
+          "
+        >
+          <!-- React -->
+          <img
+            src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=white"
+            alt="React"
+          />
+          <!-- Node.js -->
+          <img
+            src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white"
+            alt="Node.js"
+          />
+          <!-- Python -->
+          <img
+            src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white"
+            alt="Python"
+          />
+          <!-- MongoDB -->
+          <img
+            src="https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white"
+            alt="MongoDB"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="category-sections">
+  <section>
+    <h2>🔍 TroubleShooting</h2>
+    {% for post in site.categories.troubleshooting %} {% if post.project ==
+    "act" %}
+    <li class="post-list-item">
+      <span class="home-date">
+        {{ post.date | date: site.theme_config.date_format }}»
+      </span>
+      <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+    </li>
+    {% endif %} {% endfor %}
+  </section>
+  <section>
+    <h2>📝 Code Review</h2>
+    {% for post in site.categories.code-review %} {% if post.project == "act" %}
+    <li class="post-list-item">
+      <span class="home-date">
+        {{ post.date | date: site.theme_config.date_format }}»
+      </span>
+      <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+    </li>
+    {% endif %} {% endfor %}
+  </section>
+  <section>
+    <h2>🔌 OpenAPI</h2>
+    {% for post in site.categories.openapi %} {% if post.project == "act" %}
+    <li class="post-list-item">
+      <span class="home-date">
+        {{ post.date | date: site.theme_config.date_format }}»
+      </span>
+      <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+    </li>
+    {% endif %} {% endfor %}
+  </section>
+</div>
+
+<style>
+  .project-header {
+    margin-bottom: 2rem; /* 간격 축소 */
+  }
+
+  .project-overview {
+    margin: 0 auto;
+    max-width: 800px; /* 프로젝트 카드와 동일한 넓이 */
+  }
+
+  .project-card {
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem; /* 카테고리 섹션과 간격 조정 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .card-section {
+    margin-bottom: 1.5rem;
+  }
+
+  .tech-stack {
+    margin-top: 2rem;
+  }
+
+  .tech-tags {
+    display: flex;
+    justify-content: center;
+    gap: 1rem; /* 배지 간격 조정 */
+    flex-wrap: nowrap;
+  }
+
+  .category-sections {
+    margin: 0 auto;
+    max-width: 800px; /* 프로젝트 카드와 넓이를 맞춤 */
+  }
+
+  .category-sections section {
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .category-sections h2 {
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--primary-color);
+  }
+</style>

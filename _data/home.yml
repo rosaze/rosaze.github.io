@@ -13,7 +13,7 @@ navbar_entries:
 
 project_entries:
   - title: Ac.T(관광데이터 공모전)
-    url: overview-post
+    url: /categories/act-tourism
     desc:
     #This is an example project, configured in _data/home.yml
 
