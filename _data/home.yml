@@ -14,23 +14,23 @@ navbar_entries:
 project_entries:
   - title: Ac.T(관광데이터 공모전)
     url: /categories/act-tourism
-    desc:
+    desc: Node.js 와 React 안드로이드로 개발한 앱
     #This is an example project, configured in _data/home.yml
 
   - title: gen-AI to image generation project
-    url: overview-post
-    desc: Projects are shown in card layout
+    url: categories/webtoonizer
+    desc: 일관된 웹툰 이미지 자동 생성을 위한 텍스트 프롬프트 최적화 기법
 
   - title: Web project-Stattracker
     url: overview-post
     desc: 대학생들의 능력 스탯을 시각적으로 보여줄 수 있는 간단한 웹사이트입니다.
     #You can control visibility from _config.yml file
 
-  - title:
-    url: code
-    desc: Node.js 와 react를 활용한 웹앱입니다. 어린 아이들을 돌보는 교사들과, 제작자들을 위한 거래 관리 플랫폼입니다.
+  - title: 신.빅.해 -투자증권 부문
+    url: /categories/shinhan
+    desc: 신한 빅데이터 분석 해커톤 분석기법 및 회고록
     #This project uses highlight markup, configured in _data/home.yml
-    highlight: WIP
+    highlight: 우수상
 
 old_project_entries:
   - title: Algorithm Study
@@ -38,9 +38,9 @@ old_project_entries:
     desc: algorithm problem solving mostly by Python
     highlight: NEW
 
-  - title: Bigdata Hackton
+  - title: 숙명 빅데이터 해커톤
     url: bigdata-hackaton
-    desc: An open source landing website with supporting pages and integrated blog
+    desc: 제 1회 숙명 빅데이터 해커톤 참가 후기
 
   - title: Moonwalk
     url: https://github.com/abhinavs/moonwalk

@@ -1,0 +1,172 @@
+---
+layout: default
+title: 신.빅.해
+---
+
+<header class="project-header">
+  <h1>{{ page.title }}</h1>
+  <div class="project-overview">
+    <div class="project-card">
+      <div class="card-section">
+        <h3>🚀 프로젝트 개요</h3>
+        <p>
+          한국관광공사에서 주최한 관광데이터 공모전 프로젝트로, 관광 데이터를
+          분석하여 맞춤형 여행 코스를 추천하는 서비스를 개발했습니다.
+        </p>
+      </div>
+
+      <div class="card-section">
+        <h3>💡 주요 성과</h3>
+        <ul>
+          <li>실시간 관광지 정보 제공 API 구축</li>
+          <li>Python 기반 데이터 전처리 자동화</li>
+          <li>맞춤형 추천 알고리즘 구현</li>
+        </ul>
+      </div>
+
+      <div class="card-section tech-stack">
+        <h3>🛠️ 기술 스택</h3>
+        <div class="tech-tags">
+          <span>React</span>
+          <span>Node.js</span>
+          <span>Python</span>
+          <span>MongoDB</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="category-sections">
+  <section>
+    <h2>🔍 TroubleShooting</h2>
+    {% for post in site.categories.troubleshooting %} {% if post.project ==
+    "act" %}
+    <li class="post-list-item">
+      <span class="home-date">
+        {{ post.date | date: site.theme_config.date_format }}»
+      </span>
+      <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+    </li>
+    {% endif %} {% endfor %}
+  </section>
+
+  <section>
+    <h2>📝 Code Review</h2>
+    {% for post in site.categories.code-review %} {% if post.project == "act" %}
+    <li class="post-list-item">
+      <span class="home-date">
+        {{ post.date | date: site.theme_config.date_format }}»
+      </span>
+      <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+    </li>
+    {% endif %} {% endfor %}
+  </section>
+
+  <section>
+    <h2>🔌 OpenAPI</h2>
+    {% for post in site.categories.openapi %} {% if post.project == "act" %}
+    <li class="post-list-item">
+      <span class="home-date">
+        {{ post.date | date: site.theme_config.date_format }}»
+      </span>
+      <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+    </li>
+    {% endif %} {% endfor %}
+  </section>
+</div>
+
+<style>
+  .project-header {
+    margin-bottom: 4rem;
+  }
+
+  .project-overview {
+    margin: 2rem 0;
+  }
+
+  .project-card {
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .card-section {
+    margin-bottom: 1.5rem;
+  }
+
+  .card-section:last-child {
+    margin-bottom: 0;
+  }
+
+  .card-section h3 {
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+    font-size: 1.2rem;
+  }
+
+  .card-section ul {
+    list-style-type: none;
+    padding-left: 1rem;
+  }
+
+  .card-section ul li {
+    margin: 0.5rem 0;
+    position: relative;
+  }
+
+  .card-section ul li:before {
+    content: "•";
+    color: var(--primary-color);
+    position: absolute;
+    left: -1rem;
+  }
+
+  .tech-stack {
+    margin-top: 2rem;
+  }
+
+  .tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+  }
+
+  .tech-tags span {
+    background: var(--primary-color);
+    color: var(--bg-secondary);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+  }
+
+  .category-sections {
+    margin-top: 3rem;
+  }
+
+  .category-sections section {
+    margin-bottom: 3rem;
+    background: var(--bg-secondary);
+    padding: 1.5rem;
+    border-radius: 8px;
+  }
+
+  .category-sections h2 {
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 2px solid var(--primary-color);
+  }
+
+  .post-list-item {
+    list-style: none;
+    margin: 1rem 0;
+    padding-left: 1rem;
+  }
+
+  .home-date {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-right: 0.5rem;
+  }
+</style>
