@@ -18,7 +18,7 @@ project_entries:
     #This is an example project, configured in _data/home.yml
 
   - title: gen-AI to image generation project
-    url: categories/webtoonizer
+    url: /categories/webtoonizer
     desc: 일관된 웹툰 이미지 자동 생성을 위한 텍스트 프롬프트 최적화 기법
 
   - title: Web project-Stattracker
