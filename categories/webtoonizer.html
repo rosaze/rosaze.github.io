@@ -12,7 +12,7 @@ title: Webtoonizer - AI 웹툰 스타일 변환 프로젝트
 
     <div class="project-links">
       <a
-        href="https://github.com/yourusername/webtoonizer"
+        href="https://github.com/seobin0224/AIF2024_Yooncoders"
         class="link-button github"
       >
         <svg
@@ -128,62 +128,6 @@ title: Webtoonizer - AI 웹툰 스타일 변환 프로젝트
           {% endif %} {% endfor %}
         </ul>
       </section>
-      <section id="references" class="post-section">
-        <h2>📚 References & Research</h2>
-        <ul class="post-list">
-          {% for post in site.categories.references %} {% if post.project ==
-          "webtoonizer" %}
-          <li class="post-list-item">
-            <span class="home-date">
-              {{ post.date | date: site.theme_config.date_format }}»
-            </span>
-            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-          </li>
-          {% endif %} {% endfor %}
-        </ul>
-      </section>
-      <section id="interface" class="post-section">
-        <h2>🎨 Interface Development</h2>
-        <ul class="post-list">
-          {% for post in site.categories.interface %} {% if post.project ==
-          "webtoonizer" %}
-          <li class="post-list-item">
-            <span class="home-date">
-              {{ post.date | date: site.theme_config.date_format }}»
-            </span>
-            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-          </li>
-          {% endif %} {% endfor %}
-        </ul>
-      </section>
-      <section id="prompt-engineering" class="post-section">
-        <h2>💡 Prompt Engineering</h2>
-        <ul class="post-list">
-          {% for post in site.categories.prompt-engineering %} {% if
-          post.project == "webtoonizer" %}
-          <li class="post-list-item">
-            <span class="home-date">
-              {{ post.date | date: site.theme_config.date_format }}»
-            </span>
-            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-          </li>
-          {% endif %} {% endfor %}
-        </ul>
-      </section>
-      <section id="clip" class="post-section">
-        <h2>🤖 CLIP Model</h2>
-        <ul class="post-list">
-          {% for post in site.categories.clip %} {% if post.project ==
-          "webtoonizer" %}
-          <li class="post-list-item">
-            <span class="home-date">
-              {{ post.date | date: site.theme_config.date_format }}»
-            </span>
-            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-          </li>
-          {% endif %} {% endfor %}
-        </ul>
-      </section>
     </div>
   </div>
 </div>
@@ -276,55 +220,6 @@ title: Webtoonizer - AI 웹툰 스타일 변환 프로젝트
     margin-bottom: 3rem;
   }
 
-  .feature-card {
-    background: var(--bg-secondary);
-    border-radius: 12px;
-    overflow: hidden;
-    text-decoration: none;
-    color: inherit;
-    transition: all 0.3s ease;
-    height: 100%;
-  }
-
-  .feature-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  }
-
-  .feature-content {
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-  }
-
-  .feature-icon {
-    font-size: 2rem;
-    margin-bottom: 0.8rem;
-  }
-
-  .feature-card h3 {
-    margin-bottom: 0.8rem;
-    color: var(--primary-color);
-    font-size: 1.2rem;
-  }
-
-  .feature-card p {
-    color: var(--text-secondary);
-    line-height: 1.5;
-    margin: 0;
-    font-size: 0.95rem;
-  }
-
-  @media (max-width: 768px) {
-    .feature-grid {
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    }
-
-    .project-title {
-      font-size: 1.8rem;
-    }
-  }
   .post-sections {
     margin-top: 4rem;
   }
@@ -373,5 +268,15 @@ title: Webtoonizer - AI 웹툰 스타일 변환 프로젝트
 
   .post-list-item a:hover {
     color: var(--primary-color);
+  }
+
+  @media (max-width: 768px) {
+    .feature-grid {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+
+    .project-title {
+      font-size: 1.8rem;
+    }
   }
 </style>
