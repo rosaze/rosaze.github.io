@@ -27,7 +27,7 @@ project_entries:
     #You can control visibility from _config.yml file
 
   - title: 신.빅.해 -투자증권 부문
-    url: /categories/shinhan
+    url: shinhan
     desc: 신한 빅데이터 분석 해커톤 분석기법 및 회고록
     #This project uses highlight markup, configured in _data/home.yml
     highlight: 우수상
