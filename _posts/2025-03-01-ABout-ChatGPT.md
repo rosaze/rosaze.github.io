@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "GPT evolution"
+title: "GPT revolution"
 date: 2025-03-01 09:00:00 +0900
 categories: references
 project: webtoonizer
@@ -91,7 +91,7 @@ project: webtoonizer
 
 ### 요약하면
 
-- GPT-3는 파인튜닝 없이도 충분히 큰 모델에서는 소량 예시만으로 새로운 작업에 적응 가능한지를 실증하여, NLP 모델 활용 방식의 새로운 가능성을 열었다.
+- GPT-3는 파인튜닝 없이도 충분히 큰 모델에서는 소량 예시만으로 새로운 작업에 적응 가능한지를 입증.
 
 ### 학습 최적화 및 데이터 처리:
 
