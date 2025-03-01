@@ -126,3 +126,20 @@ title: "숙명여대 1회 빅데이터 활용 해커톤 Review"
 - **신진수 멘토님**
   - 역할: 멘토
   - Krafton 데이터사이언티스트
+
+## Post
+
+- 구글 트렌드 데이터 크롤링 방법 :
+
+<ul class="related-posts">
+  {% for post in site.posts %}
+    {% if post.url != page.url %}
+      {% if post.categories contains "bigdata" or post.categories contains "hackathon" %}
+        <li>
+          <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+          <small>{{ post.date | date: "%Y-%m-%d" }}</small>
+        </li>
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+</ul>
