@@ -322,8 +322,10 @@ _상관관계 해석 시 주의사항_ :
 housing["rooms_per_house"] = housing["total_rooms"] / housing["households"]
 housing["bedrooms_ratio"] = housing["total_bedrooms"] / housing["total_rooms"]
 housing["population_per_house"] = housing["population"] / housing["households"]
+```
 
--  새로운 bedrooms_ratio 특성은 전체 방 개수나 침실 개수보다 중간 주택 가격과의 상관관계가 훨씬 높다.
+- 새로운 bedrooms_ratio 특성은 전체 방 개수나 침실 개수보다 중간 주택 가격과의 상관관계가 훨씬 높다.
+
 ---
 
 {: data-content="footnotes"}
@@ -332,4 +334,7 @@ housing["population_per_house"] = housing["population"] / housing["households"]
 [^2]: 데이터를 수동으로 내려받아 압축을 푸는 대신 이를 위한 함수를 작성하는 것이 일반적으로 낫다. 데이터를 내려받는 일을 자동화하면 여러 기기에 데이터셋을 설치해야 할 때도 편리하다.
 [^3]: 데이터를 더 깊게 들여다보기 전에 테스트 세트를 따로 떼어놓아야 합니다. 그리고 테스트세트를 절대 들여다보면 안 됩니다.
 [^4]:
+
+```
+
 ```
