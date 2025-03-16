@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "핸즈온 머신러닝 1.4~1.6 + 2.1~2.4"
+title: "핸즈온 머신러닝 1.4~1.6"
 date: 2025-03-15
 categories: [research, dacos-study] # 또는 [research, nlp] 또는 [research, computer-vision]
 ---

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ page.lang | default: "en" }}" class="html" data-theme="{{ site.theme_config.appearance | default: "auto" }}">
         {%- include head.html -%}
+        
   <body>
     <main class="page-content" aria-label="Content">
       <div class="w">
@@ -33,5 +34,9 @@
         <script async defer src="https://sdk.soopr.co/soopr.js"></script>
       {%- endif -%}
     {%- endif -%}
+    
+    {% if page.use_math %}
+	    {% include mathjax_support.html %}
+    {% endif %}
   </body>
 </html>
