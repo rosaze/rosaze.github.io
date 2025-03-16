@@ -101,21 +101,61 @@ $
 <br>
 
 **차이점: RMSE vs MAE**
-RMSE는 이상치가 있는 경우 영향을 크게 받고, MAE는 이상치 영향을 상대적으로 덜 받는다.이러한 특성 때문에 RMSE는 **일반적인 데이터 분포에서 자주 사용**되지만, 이상치가 많다면 MAE가 더 적절할 수 있다.
+RMSE는 이상치가 있는 경우 영향을 크게 받고, MAE는 이상치 영향을 상대적으로 덜 받는다.이러한 특성 때문에 RMSE는 종 모양 분포의 양 끝단처럼 이상치가 매우 드문 **일반적인 데이터 분포에서 자주 사용**되지만, 이상치가 많다면 MAE가 더 적절할 수 있다.
 
 ### 2.2.3 가정 검사
 
-## [2.2 데이터 가져오기](#22-데이터-가져오기)
+- 팀원들과 지금까지 만든 가정을 나열하고 검사해보기. 심각한 문제를 일찍 발견할 수 있기에 꼭 해보자.문제를 회귀or 분류 등 어떤 solution 으로 해결을 할지 확인을 꼭 해야 한다.
+
+## [2.3 데이터 가져오기](#23-데이터-가져오기)
+
+[02_end_to_end_machine_learning_project.ipynb](https://colab.research.google.com/github/rickiepark/handson-ml3/blob/main/02_end_to_end_machine_learning_project.ipynb)
+
+[^2]
+
+```python
+# 데이터를 추출하고 로드하는 함수
+from pathlib import Path
+import pandas as pd
+import tarfile
+import urllib.request
+def load_housing_data():
+    tarball_path = Path("datasets/housing.tgz")
+    if not tarball_path.is_file():
+        Path("datasets").mkdir(parents=True, exist_ok=True)
+
+        url = "https://github.com/ageron/data/raw/main/housing.tgz"
+        urllib.request.urlretrieve(url, tarball_path)
+        with tarfile.open(tarball_path) as housing_tarball:
+            housing_tarball.extractall(path="datasets")
+    return pd.read_csv(Path("datasets/housing/housing.csv"))
+housing = load_housing_data()
+```
+
+load_housing_data() 함수를 호출하면 datasets/housing.tgz 파일을 찾는다.
+
+### 2.3.6 데이터 구조 훑어보기
+
+_head()_ --> 각 행은 하나의 구역을 나타냅니다. 특성은 longitude, latitude, housing\*median_age.
+total_rooms. total_bedrooms, population. households, median_income. median_house_value, ocean_proximity 등 10개
+
+_info()_ -> 전체 행 수, 각 특성의 데이터 타입과 널이 아닌 값의 개수 확인 . 20,640개의 샘플,ocean_proximity 필드만 빼고 모든 특성이 숫자형.
+
+_describe()_ -> 숫자형 특성의 요약 정보, std 행은 값이 퍼져있는 정도를 측정하는 표준 편차를 나타낸다.
+
+<img src="images/handsonmc/i3.png" width="500" height="300">
+
+모든 숫자형 특성에 대한 히스토그램.중간 소득은 달러 단위가 아니라 숫자로 변환되어 있음을 확인 가능하다.또한 중간 주택 연도와 중간 주택 가격의 최댓값과 최솟값이 제한되어있다. 이를 해결하기 위해 한계값 데이터의 정확한 레이블을 확보하고, 훈련 세트에서 이런 구역을 제거해야 한다. 마지막으로 일부 특성 값이 다른 특성보다 훨씬 크거나 작은데, ml 에서는 스케일이 다르면 학습이 어려울 수 있다. 따라서 특성 스케일링을 통해 표준화 or 정규화를 사용해야 한다.
+
+- _대부분의 histogram 에서 오른쪽 꼬리가 더 긴데, 일부 ml 알고리즘은 정규분포가 아닌 경우 패턴을 찾기 어렵다. 따라서 데이터 변환을 통해 더 정규분포에 가깝도록 조정해야 한다._ [^3]
+
+### 2.3.7 테스트 세트 만들기
 
 ---
 
 {: data-content="footnotes"}
 
 [^1]: 데이터가 매우 클 경우 MapReduce로 배치 학습을 분산하거나 온라인 학습 기법을 고려할 수 있다.
-[^2]: 소규모 프로젝트였기 때문에 GCP 가 더 편했다.
-[^3]: flask api 를 배포된 서버에 합칠때 용량이 적어서 나중에 크기를 늘렸다.
+[^2]: 데이터를 수동으로 내려받아 압축을 푸는 대신 이를 위한 함수를 작성하는 것이 일반적으로 낫다. 데이터를 내려받는 일을 자동화하면 여러 기기에 데이터셋을 설치해야 할 때도 편리하다.
+[^3]: 데이터를 더 깊게 들여다보기 전에 테스트 세트를 따로 떼어놓아야 합니다. 그리고 테스트세트를 절대 들여다보면 안 됩니다.
 [^4]:
-    우리 프로젝트에서는 백엔드+ flaskapi 만 도커에 있었는데 하루에 4700원정도 나갔다.
-
-    $$
-    $$
