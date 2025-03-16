@@ -1,0 +1,15 @@
+---
+layout: default
+title: 핸즈온 머신러닝
+---
+
+<h1>핸즈온 머신러닝 스터디 기록</h1>
+
+{% for post in site.categories.dacos-study %}
+<li class="post-list-item">
+  <span class="home-date">
+    {{ post.date | date: site.theme_config.date_format }}»
+  </span>
+  <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+</li>
+{% endfor %}

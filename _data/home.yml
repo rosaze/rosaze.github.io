@@ -73,6 +73,11 @@ research_entries:
     url: /categories/prompt-engineering
     desc: Collection of Prompt Engineering & gen AI
 
+  - title: 핸즈온 머신러닝
+    url: /categories/dacos-study
+    desc: Study records of Dacos
+    highlight: DACOS
+
 misc_entries:
   - title: this is an example vertical list
     url: false

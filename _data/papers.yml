@@ -6,3 +6,8 @@
   url: /categories/prompt-engineering
   desc: prompt engineering research paper
   highlight: NEW
+
+- title: 핸즈온 머신러닝
+  url: /categories/dacos-study
+  desc: 다코스 스터디 기록
+  highlight: CLUB
