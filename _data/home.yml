@@ -50,6 +50,10 @@ old_project_entries:
     url: research
     desc: Summaries and analyses of various research papers.
 
+  - title: Spring MVC study
+    url: /categories/spring-study
+    desc: Study records of spring
+    highlight: APPS
 footer_entries:
   - title: Baekjoon handle
     url: https://solved.ac/profile/geenieyoon
@@ -77,11 +81,6 @@ research_entries:
     url: /categories/dacos-study
     desc: Study records of Dacos
     highlight: DACOS
-
-  - title: Spring MVC study
-    url: /categories/spring-study
-    desc: Study records of spring
-    highlight: APPS
 
 misc_entries:
   - title: this is an example vertical list
