@@ -78,6 +78,11 @@ research_entries:
     desc: Study records of Dacos
     highlight: DACOS
 
+  - title: Spring MVC study
+    url: /categories/spring-study
+    desc: Study records of spring
+    highlight: APPS
+
 misc_entries:
   - title: this is an example vertical list
     url: false
