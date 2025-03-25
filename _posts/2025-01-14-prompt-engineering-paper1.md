@@ -3,7 +3,7 @@ layout: post
 title: "PromptCharm: Text-to-Image Generation through Multi-modal
 Prompting and Refinement"
 date: 2024-01-14
-categories: [prompt-engineering] # 또는 [research, nlp] 또는 [research, computer-vision]
+categories: [cv-nlp-pe] # 또는 [research, nlp] 또는 [research, computer-vision]
 ---
 
 > 혼합 주도형 텍스트 프롬프트 최적화 시스템: PromptCharm

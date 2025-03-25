@@ -73,9 +73,9 @@ research_entries:
     desc: Collection of machine learning research papers
     highlight: NEW
 
-  - title: Prompt Engineering
-    url: /categories/prompt-engineering
-    desc: Collection of Prompt Engineering & gen AI
+  - title: CV, NLP, PE Papers
+    url: /categories/cv-nlp-pe
+    desc: Research on prompt engineering in CV and NLP & PE
 
   - title: 핸즈온 머신러닝
     url: /categories/dacos-study
