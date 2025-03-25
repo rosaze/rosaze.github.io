@@ -134,11 +134,9 @@ Transformer uses multi head attention to three ways:
 
 > 인코더-디코더 어텐션: 디코더가 인코더 출력 전체를 참조, 인코더가 자신의 이전 레이어를 참조 + 디코더가 과거 위치만 참조하도록 마스킹을 적용
 
-<details>
-<summary><mark>what is self attention </mark>
-</summary>
-<div markdown="1">
-- **같은 시퀀스 내의 모든 요소들 간의 관계(의존성)**를 계산하는 메커니즘. 각 단어가 동일한 시퀀스의 다른 단어들과 어떻게 연관되는지 **가중치(attention score)**로 표현
+<mark>what is self attention </mark>
+
+- 같은 시퀀스 내의 모든 요소들 간의 관계(의존성)를 계산하는 메커니즘. 각 단어가 동일한 시퀀스의 다른 단어들과 어떻게 연관되는지 **가중치(attention score)**로 표현
 
 - 쿼리, 키, 값 벡터 생성 -> attention score 계산 -> 가중합 출력
 - self attention 이 transformer 가 제시하는 가장 새로운 기법.
@@ -149,14 +147,11 @@ RNN/CNN의 한계:
 RNN: 순차적 처리 → 병렬화 불가, 장기 의존성 학습 어려움.
 CNN: 지역적 패턴 중심 → 긴 시퀀스 관계 포착 힘듦.
 
-<셀프 어텐션의 장점>
+_셀프 어텐션의 장점_
 
 병렬 처리 가능: 모든 위치 간 관계를 한 번에 계산.
 장거리 의존성 학습: 시퀀스 길이에 무관하게 직접 연결.
 해석 가능성: 어텐션 가중치로 모델의 결정 근거 분석 가능.
-
-</div>
-</details>
 
 ## 3.3
 
@@ -190,5 +185,62 @@ CNN: 지역적 패턴 중심 → 긴 시퀀스 관계 포착 힘듦.
 
 - 대규모 병렬 학습 + warmup 기반 동적 학습들
 - 학습률 공식으로는 초기 선형 증가 -> 이후 스텝 수 제곱근 역비례 감소
-- 정규화 -> 드롭아웃과 라벨 스무딩으로 정규화, BLEU 점수 향상에 기여.
--
+
+### 5.3 optimizer ->
+
+- Adam 사용. 초반 4,000스텝: 학습률을 선형 증가. 이후: 학습률을 스텝 수의 제곱근에 반비례하게 감소
+
+### 5.4 정규화 ->
+
+- 드롭아웃과 라벨 스무딩으로 정규화, BLEU 점수 향상에 기여.
+- 초반 예열(warmup): 갑작스러운 큰 학습률로 인한 불안정성 방지.
+
+- 후반 감소: 정밀한 최적화를 위해 천천히 조정.
+
+- Adam + 스케줄링: 빠르면서도 안정적인 학습 가능.
+
+## 6. 결과
+
+### 6.1 Machine Translation
+
+#### Transformer 빅 모델이 WMT 2014 영→독/영→프 번역에서 기존 최고 기록을 2.0 BLEU 이상 경신하며, 훈련 비용은 1/4로 절감했다.
+
+- 즉 적은 자원으로 높은 정확도를 달성했고, 단일 모델로 앙상블 성능을 뛰어넘음.
+
+### 6.2 Model Variations
+
+- 트랜스포머의 핵심 구성 요소를 실험적으로 분석한 결과, 멀티헤드 어텐션과 적절한 키 차원 (dk), dropout 이 성능에 가장 큰 영향을 미쳤다.
+
+#### 테이블 해석
+
+1. **어텐션 헤드 수 : 단일 헤드 사용시 BLEU 0.9 하락 -> 멀티헤드 필수적.하지만 헤드 수 과도 증가 시 성능 저하 -> 적정 밸런스 필요.**
+2. 어텐션 키 차원 (dk) : dk 축소 시 성능 하락. dot product의 한계 노출. 복잡한 호환성 함수가 더 유용할 수 있음.
+3. 큰 모델 -> 더 높은 성능. 드롭아웃 -> 과적합 방지 효과 큼.
+4. 위치 인코딩.
+
+<details>
+<summary><mark>what is attention head </mark>
+</summary>
+<div markdown="3">
+Multihead attention (from transformer) 에서 병렬로 작동하는 독립적 어텐션 메커니즘. 각 헤드는 서로 다른 관점에서 입력 데이터의 관계를 분석.
+
+어텐션 헤드의 역할은 쿼리, 키, 값 벡터를 생성해 특정 위치 간의 중요도를 계산하는 것. n 개 헤드라면 n가지 다른 패턴을 병렬로 분석해 종합함.
+
+헤드 수가 과도하면 각 헤드가 너무 세분화된 패턴만 학습해 전체적인 문맥 이해가 약화됨. 헤드 증가 시 메모리, 연산량이 높지만, 성능 향상은 한계가 존재.
+
+</div>
+</details>
+
+### 6.3 English Consistency Parsing
+
+- Transformer가 영어 구문 분석(Constituency Parsing)에서도 RNN 기반 모델을 능가하며, 준지도 학습 시 SOTA에 근접한 성능을 달성했다.
+- 출력이 입력보다 훨씬 길고 구문 규칙이 엄격한 태스크에서도 일반화 가능하여 구조적 제약 극복함
+
+## Conclusion
+
+_"For translation tasks, the Transformer can be trained significantly faster than architectures based
+on recurrent or convolutional layers"_
+
+_"We plan to extend the Transformer to problems involving input and output modalities other than text and to investigate local, restricted attention mechanisms to efficiently handle large inputs and outputs such as images, audio and video. Making generation less sequential is another research goals of ours."_
+
+### 실제로 이미지 분류에 Transformer 을 적용함으로서 멀티모달 적용에 성공하였다. 3년만에 VIT, CLIP등으로 실현되며 AI 패러다임 자체를 바꾸었다.
