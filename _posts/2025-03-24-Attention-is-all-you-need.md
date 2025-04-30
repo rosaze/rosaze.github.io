@@ -27,6 +27,8 @@ _- "We show that the Transformer generalizes well to other tasks by applying it 
 
 순환 모델은 일반적으로 입력 및 출력 시퀀스의 심볼 위치를 따라 계산을 구성한다. 계산 시간 단계와 위치를 맞추어, 이전 은닉 상태(ht−1)와 현재 위치(t)의 입력을 함수로 사용하여 일련의 은닉 상태(ht)를 생성한다. 이러한 본질적인 순차적 특성은 훈련 예제 내에서의 병렬화를 방해하며, 이는 시퀀스 길이가 길어질수록 더욱 중요해진다. 메모리 제약으로 인해 예제 간 배치 처리에 한계가 있기 때문이다. 최근 연구에서는 인수분해 기법[21]과 조건부 계산[32]을 통해 계산 효율성을 크게 향상시켰으며, 후자의 경우 모델 성능도 개선되었다. 그러나 순차 계산의 근본적인 제약은 여전히 남아 있다.
 
+- 병렬화 안 됨, RNN블럭의 특성상 반복적으로 해결할 수 밖에 없기 때문에 블럭들 자체를 없애는게 낫다고 함 -> attention . 다 attention 블럭으로 바꾼 것.
+
 어텐션 메커니즘은 다양한 작업에서 강력한 시퀀스 모델링 및 변환 모델의 핵심 요소가 되었으며, 입력 또는 출력 시퀸스 내 거리에 관계없이 종속성을 모델링할 수 있게 한다[2, 19]. 그러나 극少数 사례[27]를 제외하면, 이러한 어텐션 메커니즘은 순환 신경망과 함께 사용된다.
 
 본 연구에서는 순환 구조를 배제하고 오직 어텐션 메커니즘만으로 입력과 출력 간의 전역적 종속성을 포착하는 트랜스포머(Transformer) 모델 아키텍처를 제안한다. 트랜스포머는 훨씬 더 많은 병렬화를 가능하게 하며, 8개의 P100 GPU로 단 12시간만 훈련해도 번역 품질에서 새로운 최첨단 성능을 달성할 수 있다.
@@ -53,7 +55,9 @@ _- "We show that the Transformer generalizes well to other tasks by applying it 
 
 # Model architecture
 
-- 대부분의 경쟁력 있는 신경망 시퀀스 변환 모델은 인코더-디코더 구조를 사용.인코더는 입력 시퀀스를 연속적 표현으로 매핑하고, 디코더는 이를 바탕으로 한 번에 하나씩(auto-regressive) 출력 시퀀스를 생성
+- 대부분의 경쟁력 있는 신경망 시퀀스 변환 모델은 인코더-디코더 구조를 사용.
+  RNN cell block -> **Attention**
+  transformer 도 마찬가지로 , 인코더는 입력 시퀀스를 연속적 표현으로 매핑하고, 디코더는 이를 바탕으로 한 번에 하나씩(auto-regressive) 출력 시퀀스를 생성
 - 인코더: 입력 (x₁,...,xₙ) → 연속 표현 (z₁,...,zₙ) 변환
 - 디코더: z를 기반으로 (y₁,...,yₘ) 생성 (이전 출력을 다음 입력으로 사용)
 
@@ -61,10 +65,12 @@ _- "We show that the Transformer generalizes well to other tasks by applying it 
 
 ## 3.1 Encoder and Decoder Stacks
 
+**transformer**의 핵심!
+
 - 인코더(Encoder): 6개의 동일한 레이어로 구성되며, 각 레이어는 2개의 서브 레이어를 가짐
 
-  - 멀티 헤드 셀프 어텐션
-  - 위치별 완전 연결 피드포워드 네트워크
+  - 멀티 헤드 셀프 어텐션(Self Attention):
+  - 위치별 완전 연결 Feed Forward 네트워크
 
 - 각 서브 레이어에는 잔차 연결(Residual Connection) + 레이어 정규화 적용 → 출력: LayerNorm(x + Sublayer(x))
 
@@ -81,6 +87,32 @@ _- "We show that the Transformer generalizes well to other tasks by applying it 
 
 - Attention 이 뭐냐? 주어진 query와 key-value 쌍들을 입력받아, query와 key의 유사도에 따라 value들을 가중합해 출력하는 메커니즘
 
+  - 쿼리(고정) <-> encoded vectors : 인코딩된 벡터들을 의미 벡터로 변환해주는 가중치치 가 학습이 됨.
+  - _기존의 어텐션과 다르게 , parellel 하게 계산하기 위해 셀프 어텐션은 인코딩된 벡터들을 임베딩된 차원으로 변경해주는 matrix를 학습_
+  - Q, K 를 담당하는 weight 존재. $W_q$, $W_k$ 들이 학습이 되는 것.
+  - Aggregate information(value) of each word
+  - embedding 을 해서 컨텍스트를 매번 뽑을 필요 없이, 한번에 모든 토큰을 계산을 해 놓고 아웃풋을 뽑을 수 있음. 반복했던 것을 한번에 할 수 있음 = Matrix Multiplication
+
+<mark>what is self attention </mark>
+
+- 같은 시퀀스 내의 모든 요소들 간의 관계(의존성)를 계산하는 메커니즘(임베딩 방식 중 하나). 각 단어가 동일한 시퀀스의 다른 단어들과 어떻게 연관되는지 Q, K 사이의 관계성을 계산하여 **가중치(attention score)**로 표현. 어텐션은 각 쿼리에 대해 닷 프로덕트로 진행. 셀프 어텐션도 모든 워드 토큰들에 대해 similarity 계산.
+
+- 쿼리, 키, 값 벡터 생성 -> attention score 계산, Attention Matrix 도출 -> Value를 곱하여 가중합 출력 = Updated Query
+- self attention 이 transformer 가 제시하는 가장 새로운 기법.
+
+_셀프 어텐션의 혁신성 vs. 기존 방식_
+
+RNN/CNN의 한계:
+
+RNN: 순차적 처리 → 병렬화 불가, 장기 의존성 학습 어려움.
+CNN: 지역적 패턴 중심 → 긴 시퀀스 관계 포착 힘듦.
+
+_셀프 어텐션의 장점_
+
+병렬 처리 가능: 컨텍스트를 한 번에 뽑아냄 즉, 모든 위치 간 관계를 한 번에 계산.
+장거리 의존성 학습: 시퀀스 길이에 무관하게 직접 연결.
+해석 가능성: 어텐션 가중치로 모델의 결정 근거 분석 가능.
+
 ### 3.2.1 Scaled Dot -Product Attention
 
 <details>
@@ -89,13 +121,16 @@ _- "We show that the Transformer generalizes well to other tasks by applying it 
 - 소프트맥스 함수는 입력 벡터를 확률 분포로 변환하는 활성화 함수. 다중 클래스 분류(Multi-class Classification)에서 출력층에 주로 사용.
 
 - Gradient : 벡터 미적분학에서 나온 개념으로, 함수의 최대 증가 방향을 가리키는 벡터. 머신러닝에서는 손실 함수를 최소화하기 위해 모델 파라미터를 조정하는 데 사용.
-Backpropagation 과정에서 손실 함수의 gradient 를 계산해 가중치를 업데이트함. 즉 경사 하강법의 핵심 요소.
+
+- Backpropagation 과정에서 손실 함수의 gradient 를 계산해 가중치를 업데이트함. 즉 경사 하강법의 핵심 요소.
 </div>
 </details>
 
 한 줄로 요약하자면- scaled dot product attention 은 Query와 Key의 내적을 √dk로 나눈 후 softmax를 적용해 value들의 가중합을 구하는 효율적인 attention 메커니즘이다.이때 내적 (dot product) 로 유사도를 측정하고, √dk로 나누는 이유는 softmax 의 gradient 가 너무 작아지는 문제를 방지하기 위해서다.
 
 - 쿼리, 키, 밸류 의 Q K V 가 입력되면 (인코더에) 모두 행렬로 계산하기 때문에 병렬 연산이 가능해진다.
+- Q * K => Relational Matrix. R(Attention weight)*V => Attended Query.
+- Optimization: $W_q$, $W_k$, $W_v$
 
 $\
 \text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
@@ -131,27 +166,9 @@ Transformer uses multi head attention to three ways:
 3. 디코더의 셀프-어텐션 레이어:
    - 디코더의 각 위치는 자신보다 이전 위치까지의 모든 디코더 위치에 "Attention" 할 수 있음
    - Scaled dot -product attention 내부에서 , 소프트맥스 입력 값을 masking( -무한대로 설정 함)
+   - mask: 한번에 각각 계산되도록 함.
 
 > 인코더-디코더 어텐션: 디코더가 인코더 출력 전체를 참조, 인코더가 자신의 이전 레이어를 참조 + 디코더가 과거 위치만 참조하도록 마스킹을 적용
-
-<mark>what is self attention </mark>
-
-- 같은 시퀀스 내의 모든 요소들 간의 관계(의존성)를 계산하는 메커니즘. 각 단어가 동일한 시퀀스의 다른 단어들과 어떻게 연관되는지 **가중치(attention score)**로 표현
-
-- 쿼리, 키, 값 벡터 생성 -> attention score 계산 -> 가중합 출력
-- self attention 이 transformer 가 제시하는 가장 새로운 기법.
-
-셀프 어텐션의 혁신성 vs. 기존 방식
-RNN/CNN의 한계:
-
-RNN: 순차적 처리 → 병렬화 불가, 장기 의존성 학습 어려움.
-CNN: 지역적 패턴 중심 → 긴 시퀀스 관계 포착 힘듦.
-
-_셀프 어텐션의 장점_
-
-병렬 처리 가능: 모든 위치 간 관계를 한 번에 계산.
-장거리 의존성 학습: 시퀀스 길이에 무관하게 직접 연결.
-해석 가능성: 어텐션 가중치로 모델의 결정 근거 분석 가능.
 
 ## 3.3
 
