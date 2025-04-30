@@ -166,7 +166,7 @@ Transformer uses multi head attention to three ways:
 3. 디코더의 셀프-어텐션 레이어:
    - 디코더의 각 위치는 자신보다 이전 위치까지의 모든 디코더 위치에 "Attention" 할 수 있음
    - Scaled dot -product attention 내부에서 , 소프트맥스 입력 값을 masking( -무한대로 설정 함)
-   - mask: 한번에 각각 계산되도록 함.
+   - mask: 한번에 각각 계산되도록 함.인코더를 오른쪽으로 갖고 와서 마스킹을 하는 것
 
 > 인코더-디코더 어텐션: 디코더가 인코더 출력 전체를 참조, 인코더가 자신의 이전 레이어를 참조 + 디코더가 과거 위치만 참조하도록 마스킹을 적용
 
@@ -184,7 +184,9 @@ Transformer uses multi head attention to three ways:
 
 ## 3.5 positional Encoding
 
-순서 정보를 주입하기 위해 사인/코사인 함수로 생성된 고정형 위치 인코딩을 입력 임베딩에 더함.
+**순서 정보를 주입하기 위해 사인/코사인 함수로 생성된 고정형 위치 인코딩을 입력 임베딩에 더함.**
+
+- positional encoding + 픽셀 = vision transformer
 
 ## 4. Why self-attention
 
