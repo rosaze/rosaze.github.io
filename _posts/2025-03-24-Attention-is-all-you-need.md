@@ -8,7 +8,7 @@ use_math: true
 
 # Abstract
 
-> 1. 제안한게 뭐냐. 2. 의의(차별점) 이 뭐냐
+> 1. 제안한게 뭐냐. 2. 의의(차별점) 이 뭐냐 3. Attention 이 뭐냐
 
 **번역본**
 
@@ -23,13 +23,13 @@ _- "We show that the Transformer generalizes well to other tasks by applying it 
 # Introduction
 
 **번역본**
-순환 신경망(RNN), 특히 장단기 메모리(LSTM)[13]와 게이트 순환 신경망(GRU)[7]은 언어 모델링 및 기계 번역[35, 2, 5]과 같은 시퀀스 모델링 및 변환 문제에서 최첨단 접근법으로 확고히 자리잡았다. 이후로 수많은 연구가 순환 언어 모델과 인코더-디코더 아키텍처의 한계를 넓히기 위해 지속되어 왔다[38, 24, 15].
+순환 신경망(RNN), 특히 장단기 메모리(LSTM)[13]와 게이트 순환 신경망(GRU)[7]은 언어 모델링 및 기계 번역과 같은 시퀀스 모델링 및 변환 문제에서 최첨단 접근법으로 확고히 자리잡았다. 이후로 수많은 연구가 순환 언어 모델과 인코더-디코더 아키텍처의 한계를 넓히기 위해 지속되어 왔다.
 
-순환 모델은 일반적으로 입력 및 출력 시퀀스의 심볼 위치를 따라 계산을 구성한다. 계산 시간 단계와 위치를 맞추어, 이전 은닉 상태(ht−1)와 현재 위치(t)의 입력을 함수로 사용하여 일련의 은닉 상태(ht)를 생성한다. 이러한 본질적인 순차적 특성은 훈련 예제 내에서의 병렬화를 방해하며, 이는 시퀀스 길이가 길어질수록 더욱 중요해진다. 메모리 제약으로 인해 예제 간 배치 처리에 한계가 있기 때문이다. 최근 연구에서는 인수분해 기법[21]과 조건부 계산[32]을 통해 계산 효율성을 크게 향상시켰으며, 후자의 경우 모델 성능도 개선되었다. 그러나 순차 계산의 근본적인 제약은 여전히 남아 있다.
+순환 모델은 일반적으로 입력 및 출력 시퀀스의 심볼 위치를 따라 계산을 구성한다. 계산 시간 단계와 위치를 맞추어, 이전 은닉 상태(ht−1)와 현재 위치(t)의 입력을 함수로 사용하여 일련의 은닉 상태(ht)를 생성한다. 이러한 본질적인 순차적 특성은 훈련 예제 내에서의 병렬화를 방해하며, 이는 시퀀스 길이가 길어질수록 더욱 중요해진다. 메모리 제약으로 인해 예제 간 배치 처리에 한계가 있기 때문이다. 최근 연구에서는 인수분해 기법과 조건부 계산을 통해 계산 효율성을 크게 향상시켰으며, 후자의 경우 모델 성능도 개선되었다. 그러나 순차 계산의 근본적인 제약은 여전히 남아 있다.
 
 - 병렬화 안 됨, RNN블럭의 특성상 반복적으로 해결할 수 밖에 없기 때문에 블럭들 자체를 없애는게 낫다고 함 -> attention . 다 attention 블럭으로 바꾼 것.
 
-어텐션 메커니즘은 다양한 작업에서 강력한 시퀀스 모델링 및 변환 모델의 핵심 요소가 되었으며, 입력 또는 출력 시퀸스 내 거리에 관계없이 종속성을 모델링할 수 있게 한다[2, 19]. 그러나 극少数 사례[27]를 제외하면, 이러한 어텐션 메커니즘은 순환 신경망과 함께 사용된다.
+어텐션 메커니즘은 다양한 작업에서 강력한 시퀀스 모델링 및 변환 모델의 핵심 요소가 되었으며, 입력 또는 출력 시퀸스 내 거리에 관계없이 종속성을 모델링할 수 있게 한다. 그러나 극少数 사례를 제외하면, 이러한 어텐션 메커니즘은 순환 신경망과 함께 사용된다.
 
 본 연구에서는 순환 구조를 배제하고 오직 어텐션 메커니즘만으로 입력과 출력 간의 전역적 종속성을 포착하는 트랜스포머(Transformer) 모델 아키텍처를 제안한다. 트랜스포머는 훨씬 더 많은 병렬화를 가능하게 하며, 8개의 P100 GPU로 단 12시간만 훈련해도 번역 품질에서 새로운 최첨단 성능을 달성할 수 있다.
 
@@ -41,11 +41,79 @@ _- "We show that the Transformer generalizes well to other tasks by applying it 
 
 # Background
 
-순차적 계산을 줄이려는 목표는 Extended Neural GPU[16], ByteNet[18], ConvS2S[9]의 기초가 되며, 이들 모델은 모두 합성곱 신경망(CNN)을 기본 구성 요소로 사용하여 모든 입력 및 출력 위치에 대한 은닉 표현을 병렬로 계산한다. 이러한 모델들에서는 두 임의의 입력 또는 출력 위치 간 신호를 연관시키는 데 필요한 연산량이 위치 간 거리에 따라 증가하는데, ConvS2S는 선형적으로, ByteNet는 로그 스케일로 증가한다[12]. 이로 인해 먼 위치 간 의존성을 학습하기가 더 어려워진다.
+**(seq-seq단점)**
+
+1. hard to compress the sentence: Forget earlier word representations
+   앞에 있는 정보량 손실.
+2. Different Information may be relevant at different steps
+   = 특정 단어의 위치에 따라 단어의 정보량이 민감하게 변한다.
+
+1번 문제 해결하기 위해 Encoder에서 Bidirectional LSTM을 도입하여 손실을 최소화하려 했다.
+
+**2번 문제를 해결하기 위해서는 Attention!**
+
+## What is Attention?
+
+인풋 데이터들이 위치에 상관 없이 전체 문장에서 얼마나 중요한가
+
+쿼리(Query), 키(Key), 값(Value) 벡터 계산
+
+쿼리: 현재 디코더의 상태 (내가 무엇을 찾고 있는가?)
+키: 각 인코더 출력 표현 (각 입력 단어의 특성)
+값: 실제 인코더의 정보 (실제로 가져올 내용)
+
+### _유사도 계산_
+
+쿼리와 각 키 사이의 내적(dot product) 계산: score = Query · Key
+
+- 유사도 계산: 두 벡터의 내적 for each encoder's representation and hidden state of decoder
+- $a \cdot b = \|a\| \|b\| \cos \theta$
+  - 두 벡터가 같은 방향을 가리키는지 측정
+
+_가중치 변환_ : 계산된 유사도 점수들을 softmax 에 통과시킴. 결과적으로 모든 가중치의 합은 1이 됨.
+attention weights=softmax(scores)
+_가중 합계_:각 값(Value) 벡터에 해당 가중치를 곱하고 합산. context vector=∑(attention weights×values)
+
+### Attention input
+
+- Encoder states: $\( s_1, s_2, \dots, s_m \)$
+- Decoder state at time $\( t \): \( h_t \)$
+
+### Attention scores:
+
+$text{score}(h_t, s_k)$: "How relevant is source token k for target step t?"
+$
+\[
+\text{score}(h_t, s_k), \quad k = 1 \dots m
+\]
+$
+
+### Attention weights(softmax)
+
+$
+\[
+a_k^{(t)} = \frac{\exp(\text{score}(h_t, s_k))}{\sum_{i=1}^{m} \exp(\text{score}(h_t, s_i))}, \quad k = 1 \dots m
+\]
+$
+$a_k^{(t)}$: attention weight for source token k at decoder step t
+
+### Attention Output (Context Vector)
+
+$
+\[
+c^{(t)} = a_1^{(t)} s_1 + a_2^{(t)} s_2 + \cdots + a_m^{(t)} s_m
+\]
+$
+$c^{(t)}$: source context for decoder step t
+<img src="images/lecture/a1.png" alt="고양이" width="300" height="200">
+
+<img src="images/lecture/a2.png" alt="고양이" width="500" height="300">
+
+sequential 계산을 줄이려는 목표는 Extended Neural GPU, ByteNet, ConvS2S의 기초가 되며, 이들 모델은 모두 합성곱 신경망(CNN)을 기본 구성 요소로 사용하여 모든 입력 및 출력 위치에 대한 은닉 표현을 병렬로 계산한다. 이러한 모델들에서는 두 임의의 입력 또는 출력 위치 간 신호를 연관시키는 데 필요한 연산량이 위치 간 거리에 따라 증가하는데, ConvS2S는 선형적으로, ByteNet는 로그 스케일로 증가한다. 이로 인해 먼 위치 간 의존성을 학습하기가 더 어려워진다.
 
 트랜스포머에서는 이를 상수 횟수의 연산으로 줄였지만, 어텐션 가중치 위치를 평균화함으로써 발생하는 효과적인 해상도 감소라는 대가가 따른다. 우리는 이 문제를 3.2절에서 설명할 다중 헤드 어텐션(Multi-Head Attention)으로 해결했다.
 
-**자기 어텐션(Self-attention, 때로는 내부 어텐션(intra-attention)이라고도 함)은 단일 시퀀스의 서로 다른 위치들을 연관시켜 시퀀스의 표현을 계산하는 어텐션 메커니즘이다.**자기 어텐션은 독해, 추상적 요약, 텍스트 함의, 작업 독립적 문장 표현 학습 등 다양한 작업에서 성공적으로 사용되어 왔다[4, 27, 28, 22].
+**자기 어텐션(Self-attention, 때로는 내부 어텐션(intra-attention)이라고도 함)은 단일 시퀀스의 서로 다른 위치들을 연관시켜 시퀀스의 표현을 계산하는 어텐션 메커니즘이다.**
 
 종단 간 메모리 네트워크(End-to-end memory networks)는 시퀀스 정렬 순환 대신 반복적 어텐션 메커니즘을 기반으로 하며, 간단한 언어 질의응답 및 언어 모델링 작업에서 우수한 성능을 보인다[34].
 
