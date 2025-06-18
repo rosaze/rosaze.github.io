@@ -22,7 +22,7 @@ project_entries:
     desc: 일관된 웹툰 이미지 자동 생성을 위한 텍스트 프롬프트 최적화 기법
 
   - title: Web project-Stattracker
-    url: overview-post
+    url: https://rosaze.github.io/2024-Stattracker/
     desc: 대학생들의 능력 스탯을 시각적으로 보여줄 수 있는 간단한 웹사이트입니다.
     #You can control visibility from _config.yml file
 
