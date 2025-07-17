@@ -12,25 +12,11 @@ navbar_entries:
     url: research
 
 project_entries:
-  - title: Ac.T(관광데이터 공모전)
-    url: /categories/act-tourism
-    desc: Node.js 와 React 안드로이드로 개발한 앱
-    #This is an example project, configured in _data/home.yml
-
-  - title: gen-AI to image generation project
-    url: /categories/webtoonizer
-    desc: 일관된 웹툰 이미지 자동 생성을 위한 텍스트 프롬프트 최적화 기법
-
-  - title: Web project-Stattracker
-    url: https://rosaze.github.io/2024-Stattracker/
-    desc: 대학생들의 능력 스탯을 시각적으로 보여줄 수 있는 간단한 웹사이트입니다.
-    #You can control visibility from _config.yml file
-
-  - title: 신.빅.해 -투자증권 부문
-    url: shinhan
-    desc: 신한 빅데이터 분석 해커톤 분석기법 및 회고록
+  - title: 환경데이터 활용 및 분석 공모전
+    url: ecothon
+    desc: 화학물질 배출과 사회취약성 데이터 결합을 통한 지역별 맞춤형 솔루션 제안
     #This project uses highlight markup, configured in _data/home.yml
-    highlight: 우수상
+    highlight: 최우수상
 
   - title: Chat-Toner
     url: chattoner
@@ -41,8 +27,26 @@ project_entries:
     url: emory
     desc: AI 와의 Interactive 감정일기 기록 앱
     highlight: TEAM-진행중
+  - title: Ac.T(관광데이터 공모전)
+    url: /categories/act-tourism
+    desc: Node.js 와 React 안드로이드로 개발한 앱
+    #This is an example project, configured in _data/home.yml
+
+    #You can control visibility from _config.yml file
+  - title: gen-AI to image generation project
+    url: /categories/webtoonizer
+    desc: 일관된 웹툰 이미지 자동 생성을 위한 텍스트 프롬프트 최적화 기법
+
+  - title: 신.빅.해 -투자증권 부문
+    url: shinhan
+    desc: 신한 빅데이터 분석 해커톤 분석기법 및 회고록
+    #This project uses highlight markup, configured in _data/home.yml
+    highlight: 우수상
 
 old_project_entries:
+  - title: Web project-Stattracker
+    url: https://rosaze.github.io/2024-Stattracker/
+    desc: 대학생들의 능력 스탯을 시각적으로 보여줄 수 있는 간단한 웹사이트입니다.
   - title: Algorithm Study
     url: algorithm-study
     desc: algorithm problem solving mostly by Python
