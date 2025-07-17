@@ -32,6 +32,16 @@ project_entries:
     #This project uses highlight markup, configured in _data/home.yml
     highlight: 우수상
 
+  - title: Chat-Toner
+    url: chattoner
+    desc: 프롬프트 엔지니어링, RAG 을 활용한 맞춤형 말투 변환기
+    #This project uses highlight markup, configured in _data/home.yml
+    highlight: 진행중
+  - title: EMORY-감정일기 앱
+    url: emory
+    desc: AI 와의 Interactive 감정일기 기록 앱
+    highlight: TEAM-진행중
+
 old_project_entries:
   - title: Algorithm Study
     url: algorithm-study
