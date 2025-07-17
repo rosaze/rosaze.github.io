@@ -52,10 +52,6 @@ old_project_entries:
     url: bigdata-hackaton
     desc: 제 1회 숙명 빅데이터 해커톤 참가 후기
 
-  - title: Moonwalk
-    url: https://github.com/abhinavs/moonwalk
-    desc: A fast and minimalist Jekyll blog theme with clean dark mode
-
   - title: Research Summaries
     url: research
     desc: Summaries and analyses of various research papers.
